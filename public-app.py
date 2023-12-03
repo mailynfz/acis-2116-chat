@@ -66,12 +66,6 @@ if st.secrets:
     if 'OPENAI_API_KEY' in st.secrets:
         OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 
-api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
-if api_key:
-    client = OpenAI(api_key=api_key)
-else:    
-    client = OpenAI(api_key=OPENAI_API_KEY)
-
 st.sidebar.markdown(other_text_line_1)
 
 if st.sidebar.button("Start New Chat"):
@@ -83,7 +77,11 @@ if st.sidebar.button("Start New Chat"):
 st.sidebar.markdown(other_text_line_2)
 st.sidebar.markdown(other_text_line_4)
 
-
+api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
+if api_key:
+    client = OpenAI(api_key=api_key)
+else:    
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
 st.sidebar.markdown(other_text_line_3)
 
