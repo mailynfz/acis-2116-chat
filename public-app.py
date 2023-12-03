@@ -15,7 +15,7 @@ site_icon = ":nerd_face:"
 page_title = "ACIS 2116 - Principles of Managerial Accounting Chat"
 description = "A GPT4-powered chat assistant to answer your questions about ACIS 2116 at Virginia Tech's Pamplin School of Business"
 instructions = 'Ask me anything about your managerial accounting class. I am trained on your class materials, and can answer questions from your class syllabus, course lectures, and more.'
-chat_box_text = 'Click on the Start a New Chat button in the left sidebar to get started. Then, type your question here.'
+chat_box_text = "Click 'Start a New Chat' in the left sidebar to get started."
 footer_text = "Made with 🧡 by Mailyn 😊"
 
 
