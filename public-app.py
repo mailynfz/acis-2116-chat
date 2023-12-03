@@ -5,7 +5,7 @@ from PIL import Image
 import re
 
 # Configure the logo filepath
-logo_filepath = "C:\\Users\\mfdez\\Dropbox\\Active Projects\\007 GPTs\\ACIS 2116 TA\\Vertical_VT_Full_Color_RGB.png"
+logo_filepath = "Vertical_VT_Full_Color_RGB.png"
 
 # Configure site title, icon, and other
 site_title = "ACIS 2116 TA Chat"
