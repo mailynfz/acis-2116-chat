@@ -59,6 +59,19 @@ other_text_line_3 = "The cost per user should be relatively inexpensive. This ap
 
 other_text_line_4 = "You can help extend the budget for this app by starting a new chat when you want to ask about a new topic by clicking the 'Start New Chat' button again. That will clear the chat box and start a new thread on the API. Also, if you can afford to do so, please consider paying for your usage by using your own API key."
 
+# Set OpenAI contants 
+if st.secrets:
+    if 'ASSISTANT_ID' in st.secrets:
+        ASSISTANT_ID = st.secrets['ASSISTANT_ID']
+    if 'OPENAI_API_KEY' in st.secrets:
+        OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
+
+api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
+if api_key:
+    client = OpenAI(api_key=api_key)
+else:    
+    client = OpenAI(api_key=OPENAI_API_KEY)
+
 st.sidebar.markdown(other_text_line_1)
 
 if st.sidebar.button("Start New Chat"):
@@ -70,19 +83,7 @@ if st.sidebar.button("Start New Chat"):
 st.sidebar.markdown(other_text_line_2)
 st.sidebar.markdown(other_text_line_4)
 
-# Set OpenAI contants 
-if st.secrets:
-    if 'ASSISTANT_ID' in st.secrets:
-        ASSISTANT_ID = st.secrets['ASSISTANT_ID']
 
-    if 'OPENAI_API_KEY' in st.secrets:
-        OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
-
-api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
-if api_key:
-    client = OpenAI(api_key=api_key)
-else:    
-    client = OpenAI(api_key=OPENAI_API_KEY)
 
 st.sidebar.markdown(other_text_line_3)
 
