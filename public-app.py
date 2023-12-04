@@ -81,7 +81,7 @@ api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
 if api_key:
     client = OpenAI(api_key=api_key)
 st.sidebar.caption("Click here to start a new chat using your own API key:") 
-if st.sidebar.button("Start New Chat"):
+if st.sidebar.button("Reset Chat"):
     thread = client.beta.threads.create()
     st.session_state.THREAD_ID = thread.id
     st.sidebar.write("Thread ID: ", thread.id)
