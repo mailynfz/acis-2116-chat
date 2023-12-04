@@ -50,7 +50,6 @@ st.sidebar.markdown(feedback_text)
 
 st.sidebar.divider()
 
-
 other_text_line_1 = "To get started, click on the 'Start a New Chat' button below. Then, type your question in the chat box to the right." 
 
 other_text_line_2 = "I have prepaid some credits for everyone to use this bot for free. To continue using this bot after those credits are used up, you can [create your own API key](https://www.howtogeek.com/885918/how-to-get-an-openai-api-key/) and enter it below. You don't have to be a ChatGPT Plus subscriber to create an API key. If I'm not mistaken, new users get some free API credits that you can use to chat with this bot." 
@@ -80,12 +79,12 @@ st.sidebar.markdown(other_text_line_2)
 api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
 if api_key:
     client = OpenAI(api_key=api_key)
-st.sidebar.caption("Click here to start a new chat using your own API key:") 
-if st.sidebar.button("Reset Chat"):
-    thread = client.beta.threads.create()
-    st.session_state.THREAD_ID = thread.id
-    st.sidebar.write("Thread ID: ", thread.id)
-    st.session_state.messages = []
+    st.sidebar.caption("Click here to start a new chat using your own API key:") 
+    if st.sidebar.button("Reset Chat"):
+        thread = client.beta.threads.create()
+        st.session_state.THREAD_ID = thread.id
+        st.sidebar.write("Thread ID: ", thread.id)
+        st.session_state.messages = []
 
 st.sidebar.markdown(other_text_line_4)
 
