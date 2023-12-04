@@ -66,15 +66,21 @@ if st.secrets:
     if 'OPENAI_API_KEY' in st.secrets:
         OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 
+client = OpenAI(api_key=OPENAI_API_KEY)
+
 st.sidebar.markdown(other_text_line_1)
+if st.sidebar.button("Start New Chat"):
+    thread = client.beta.threads.create()
+    st.session_state.THREAD_ID = thread.id
+    st.sidebar.write("Thread ID: ", thread.id)
+    st.session_state.messages = []
+
 st.sidebar.markdown(other_text_line_2)
 
 api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
 if api_key:
     client = OpenAI(api_key=api_key)
-else:    
-    client = OpenAI(api_key=OPENAI_API_KEY)
-    
+st.sidebar.caption("Click here to start a new chat using your own API key:") 
 if st.sidebar.button("Start New Chat"):
     thread = client.beta.threads.create()
     st.session_state.THREAD_ID = thread.id
@@ -178,4 +184,3 @@ def footer(text):
     st.sidebar.markdown(footer_html, unsafe_allow_html=True)
 
 footer(footer_text)
-
