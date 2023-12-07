@@ -36,3 +36,5 @@ I would love nothing more than to find a rich benefactor to pay for the API cost
 
 - I don't know whether to say this first or last, but in general you should be polite to the AI. There's research shows kids who learn to speak with a voice assistant in their home, like Alexa or Google Assistant, grow up to be less polite to humans, in part because they grew up barking orders at a bot, without practicing how to say please or thank you. You will go on to correspond in writing in your professional lives and you don't want the way you communicate with AI to change the way you communicate with other humans. Also, just in case AI does ever become sentient, it's probably not bad for it to remember that you were one of the nice humans. 😂
 
+## Known Issues:
+- There might be issues with the sidebar loading properly when using Firefox. For now, switching to another browser should prevent this.
