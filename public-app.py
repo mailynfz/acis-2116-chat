@@ -73,6 +73,7 @@ if st.sidebar.button("Start New Chat"):
 
 # Create a sidebar for API key configuration and additional features
 st.sidebar.divider()
+st.sidebar.markdown(f"<h3 style='color: rgba(134, 31, 65, 1);'>Tips and Tricks:</h3>", unsafe_allow_html=True)
 st.sidebar.markdown(tips)
 st.sidebar.divider()
 
