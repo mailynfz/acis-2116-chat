@@ -8,16 +8,20 @@ import re
 logo_filepath = "Vertical_VT_Full_Color_RGB.png"
 
 # Configure site title, icon, and other
-site_title = "ACIS 2116 TA Chat"
+site_title = "CostGPT for Hokies "
 site_icon = ":nerd_face:"
 
 # Set the page title, description, and other text
-page_title = "ACIS 2116 - Principles of Managerial Accounting Chat"
-description = "A GPT4-powered chat assistant to answer your questions about ACIS 2116 at Virginia Tech's Pamplin School of Business"
-instructions = 'Ask me anything about your managerial accounting class. I am trained on your class materials, and can answer questions from your class syllabus, course lectures, and more.'
-chat_box_text = "Click 'Start a New Chat' in the left sidebar to get started."
+page_title = "CostGPT for Hokies"
+description = "ACIS 2116 AI Tutor: Always-On Assistance! Dive into managerial accounting with your GPT4-powered helper. Get answers from your class materials, study effectively, and conquer your final exam. Go Hokies! 😎"
+
+instructions = 'Enter your API key in the left sidebar to get started. If you don\'t have an API key, go to openai.com to create a new one ([here is a quick tutorial](https://youtu.be/UO_i1GhjElQ?si=7VvfWK8AXQG6vdcn)). After you have entered your API key, click on the "Start a New Chat" button to start a new chat. Clicking it again will clear your chat and start a new chat thread.'
+
+tips = "[Click Here](https://github.com/mailynfz/acis-2116-chat) for additional tips and tricks for getting the most out of this chat app."
+chat_box_text = "What\'s up?"
 footer_text = "Made with 🧡 by Mailyn 😊"
 
+error_message = "ERROR: Please enter your OpenAI API key AND click \'Start New Chat\' to get started."        
 
 # Set up the Streamlit page with a title and icon
 st.set_page_config(page_title= site_title, page_icon= site_icon)
@@ -25,13 +29,22 @@ st.set_page_config(page_title= site_title, page_icon= site_icon)
 # Main chat interface setup
 st.markdown(f"<h1 style='color: rgba(134, 31, 65, 1);'>{page_title}</h1>", unsafe_allow_html=True)
 st.caption(description)
-
-st.write(instructions)
-
+st.markdown(f"<h3 style='color: rgba(134, 31, 65, 1);'>Instructions</h3>", unsafe_allow_html=True)
+st.markdown(instructions)
+st.markdown(tips)
+st.divider()
 
 # Display the image in the sidebar
 image = Image.open(logo_filepath)
 st.sidebar.image(image)
+st.sidebar.divider()
+
+# Set OpenAI contants 
+if st.secrets:
+    if 'ASSISTANT_ID' in st.secrets:
+        ASSISTANT_ID = st.secrets['ASSISTANT_ID']
+    if 'OPENAI_API_KEY' in st.secrets:
+        OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 
 
 if "THREAD_ID" not in st.session_state:
@@ -40,53 +53,19 @@ if "THREAD_ID" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-
-# Create a sidebar for API key configuration and additional features
-st.sidebar.divider()
-
-feedback_text = "This app is a work-in-process. Please help improve it and share your feedback [here](https://forms.gle/3DfPAG86RyepVXMo8)."
-
-st.sidebar.markdown(feedback_text)
-
-st.sidebar.divider()
-
-
-other_text_line_1 = "To get started, click on the 'Start a New Chat' button below. Then, type your question in the chat box to the right." 
-
-other_text_line_2 = "I have prepaid some credits for everyone to use this bot for free. To continue using this bot after those credits are used up, you can [create your own API key](https://www.howtogeek.com/885918/how-to-get-an-openai-api-key/) and enter it below. You don't have to be a ChatGPT Plus subscriber to create an API key. If I'm not mistaken, new users get some free API credits that you can use to chat with this bot." 
-
-other_text_line_3 = "The cost per user should be relatively inexpensive. This app uses the gpt-4-1106-preview model, which costs \$0.01/1K tokens for input and \$0.03/1K tokens for output (response). For reference, 1K tokens is equivalent to approximately 750 words. In addition to your prompt, the app will take as input any information it retrieves from its knowledge base (i.e., the lecture notes I uploaded). To retain context, the app will also resubmit the entire conversation (i.e., thread), which increases the number of input tokens per prompt. Learn more about [OpenAI's pricing here](https://openai.com/pricing)."
-
-other_text_line_4 = "You can help extend the budget for this app by starting a new chat when you want to ask about a new topic by clicking the 'Start New Chat' button again. That will clear the chat box and start a new thread on the API. Also, if you can afford to do so, please consider paying for your usage by using your own API key."
-
-# Set OpenAI contants 
-if st.secrets:
-    if 'ASSISTANT_ID' in st.secrets:
-        ASSISTANT_ID = st.secrets['ASSISTANT_ID']
-    if 'OPENAI_API_KEY' in st.secrets:
-        OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
-        client = OpenAI(api_key=OPENAI_API_KEY)
-
-st.sidebar.markdown(other_text_line_1)
-if st.sidebar.button("Start New Chat"):
-    thread = client.beta.threads.create()
-    st.session_state.THREAD_ID = thread.id
-    st.sidebar.write("Thread ID: ", thread.id)
-    st.session_state.messages = []
-
-st.sidebar.markdown(other_text_line_2)
-
 api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
-if api_key:
-    client = OpenAI(api_key=api_key)
 
-    st.sidebar.write("API key successfully updated.")
-
-st.sidebar.markdown(other_text_line_4)
-
-st.sidebar.markdown(other_text_line_3)
-
-
+if st.sidebar.button("Start New Chat"):
+    if api_key:
+        client = OpenAI(api_key=api_key)    
+        if api_key == st.secrets['STUDENT_PASSKEY']:
+            client = OpenAI(api_key=OPENAI_API_KEY)
+        st.sidebar.write("API key successfully updated.")
+        thread = client.beta.threads.create()
+        st.session_state.THREAD_ID = thread.id
+        st.session_state.messages = []
+    else:
+        st.markdown(f"<h3 style='color: rgba(232, 119, 49, 1);'>{error_message}</h3>", unsafe_allow_html=True)
 
 st.markdown("""
     <style>
@@ -100,6 +79,16 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
+# Create a sidebar for API key configuration and additional features
+st.sidebar.divider()
+st.sidebar.markdown(tips)
+st.sidebar.divider()
+
+feedback_text = "This app is a prototype and still a work-in-process. Please help improve it by sharing your feedback [here](https://forms.gle/3DfPAG86RyepVXMo8)."
+
+st.sidebar.markdown(feedback_text)
+
+st.sidebar.divider()
 
 # Display existing messages in the chat
 for message in st.session_state.messages:
@@ -109,7 +98,7 @@ for message in st.session_state.messages:
 # Chat input for the user
 if prompt := st.chat_input(chat_box_text):
     if st.session_state.THREAD_ID is None:
-        st.write("Please click on the Start a New Chat button in the left sidebar to get started.")
+        st.markdown(f"<h3 style='color: rgba(232, 119, 49, 1);'>{error_message}</h3>", unsafe_allow_html=True)
     else:
         format_prompt = prompt.replace("$", "\\$")
         # Add user message to the state and display it
@@ -154,8 +143,6 @@ if prompt := st.chat_input(chat_box_text):
             st.session_state.messages.append({"role": "assistant", "content": response})
             with st.chat_message("assistant"):
                 st.markdown(f"{response}", unsafe_allow_html=True)
-                st.write("Session State Thread ID: ", st.session_state.THREAD_ID)
-
 
 
 
