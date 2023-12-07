@@ -22,10 +22,15 @@ I would love nothing more than to find a rich benefactor to pay for the API cost
 
 - When asking it for help solving a specific problem, ask it to use step-by-step reasoning. For instance, you can copy-paste a question into the chat box then add the text "Explain your reasoning step-by-step" to the end of your prompt.
     - It also helps to tell it what chapter the question comes from.
-    - The template that I have been using to ask it for help solving sample questoins look something like this:
+  The template that I have been using to ask it for help solving sample questoins look something like this:
     > Here is an example problem from Chapter 14. <br>
-        >     Casey Nelson is a divisional manager for Pigeon Company. His annual pay raises are largely determined by his division’s return on investment (ROI), which has been above 20% each of the last three years. Casey is considering a capital budgeting project that               would require a $3,500,000 investment in equipment with a useful life of five years and no salvage value. Pigeon Company’s discount rate is 16%. The project would provide net operating income each year for five years is $400,000, which is reported net of                 $700,000 depreciation expense. What is the project's IRR? <br>
+    > {PASTE problem text here} <br>
     > Please explain your reasoning step-by-step.
+  Here is an example:
+    > Here is an example problem from Chapter 14. <br>
+    > Casey Nelson is a divisional manager for Pigeon Company. His annual pay raises are largely determined by his division’s return on investment (ROI), which has been above 20% each of the last three years. Casey is considering a capital budgeting project that would         require a $3,500,000 investment in equipment with a useful life of five years and no salvage value. Pigeon Company’s discount rate is 16%. The project would provide net operating income each year for five years is $400,000, which is reported net of $700,000              depreciation expense. What is the project's IRR? <br>
+    > Please explain your reasoning step-by-step.
+  Note that for the example above, I had to customize the problem from the class notes so that CostGPT had all of the information it needed to solve the problem. In general, it will use up fewer tokens and provide you with better and more accurate responses if it doesn't have to guess. That said, it could be a useful exercise for you to see how it reasons through problems with incomplete information. 
 
 - I don't know whether to say this first or last, but in general you should be polite to the AI. There's research shows kids who learn to speak with a voice assistant in their home, like Alexa or Google Assistant, grow up to be less polite to humans, in part because they grew up barking orders at a bot, without practicing how to say please or thank you. You will go on to correspond in writing in your professional lives and you don't want the way you communicate with AI to change the way you communicate with other humans. Also, just in case AI does ever become sentient, it's probably not bad for it to remember that you were one of the nice humans. 😂
 
