@@ -20,8 +20,7 @@ I would love nothing more than to find a rich benefactor to pay for the API cost
 - Ask it to refer to specific chapters
     - "According to the Chapter 14 lecture notes, what is the IRR?"
 
-- When asking it for help solving a specific problem, ask it to use step-by-step reasoning. For instance, you can copy-paste a question into the chat box then add the text "Explain your reasoning step-by-step" to the end of your prompt.
-    - It also helps to tell it what chapter the question comes from.
+- When asking it for help solving a specific problem, ask it to use step-by-step reasoning. For instance, you can copy-paste a question into the chat box then add the text "Explain your reasoning step-by-step" to the end of your prompt. It also helps to tell it what chapter the question comes from.
   The template that I have been using to ask it for help solving sample questoins look something like this:
 
     > Here is an example problem from Chapter {N}. <br>
