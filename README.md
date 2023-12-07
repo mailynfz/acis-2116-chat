@@ -22,14 +22,13 @@ I would love nothing more than to find a rich benefactor to pay for the API cost
 
 - When asking it for help solving a specific problem, ask it to use step-by-step reasoning. For instance, you can copy-paste a question into the chat box then add the text "Explain your reasoning step-by-step" to the end of your prompt.
     - It also helps to tell it what chapter the question comes from.
-The template that I have been using to ask it for help solving sample questoins look something like this:
+  The template that I have been using to ask it for help solving sample questoins look something like this:
 
-    > Here is an example problem from Chapter 14. <br>
+    > Here is an example problem from Chapter {N}. <br>
     > {PASTE problem text here} <br>
     > Please explain your reasoning step-by-step.
 
-Here is an example:
-
+  Here is an example:
     > Here is an example problem from Chapter 14. <br>
     > Casey Nelson is a divisional manager for Pigeon Company. His annual pay raises are largely determined by his division’s return on investment (ROI), which has been above 20% each of the last three years. Casey is considering a capital budgeting project that would         require a $3,500,000 investment in equipment with a useful life of five years and no salvage value. Pigeon Company’s discount rate is 16%. The project would provide net operating income each year for five years is $400,000, which is reported net of $700,000              depreciation expense. What is the project's IRR? <br>
     > Please explain your reasoning step-by-step.
