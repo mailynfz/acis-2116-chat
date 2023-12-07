@@ -45,7 +45,8 @@ if st.secrets:
         ASSISTANT_ID = st.secrets['ASSISTANT_ID']
     if 'OPENAI_API_KEY' in st.secrets:
         OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
-
+    if 'STUDENT_PASSKEY' in st.secrets:
+        STUDENT_PASSKEY = st.secrets['STUDENT_PASSKEY']
 
 if "THREAD_ID" not in st.session_state:
     st.session_state.THREAD_ID = None
@@ -53,30 +54,21 @@ if "THREAD_ID" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
+API_KEY = st.sidebar.text_input("Enter your OpenAI API key", type="password")
+
+if API_KEY:
+    client = OpenAI(api_key=API_KEY)
+    st.sidebar.write("API key successfully updated.")
+if API_KEY == STUDENT_PASSKEY:
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
 if st.sidebar.button("Start New Chat"):
-    if api_key:
-        client = OpenAI(api_key=api_key)    
-        if api_key == st.secrets['STUDENT_PASSKEY']:
-            client = OpenAI(api_key=OPENAI_API_KEY)
-        st.sidebar.write("API key successfully updated.")
+    if API_KEY == None:
+        st.markdown(f"<h3 style='color: rgba(232, 119, 49, 1);'>{error_message}</h3>", unsafe_allow_html=True)
+    else:
         thread = client.beta.threads.create()
         st.session_state.THREAD_ID = thread.id
         st.session_state.messages = []
-    else:
-        st.markdown(f"<h3 style='color: rgba(232, 119, 49, 1);'>{error_message}</h3>", unsafe_allow_html=True)
-
-st.markdown("""
-    <style>
-    .element-container .stTextInput input::placeholder {
-        color: #E5751F; 
-    }
-    .element-container .stTextInput input {
-        color: black; 
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
 
 # Create a sidebar for API key configuration and additional features
@@ -89,6 +81,17 @@ feedback_text = "This app is a prototype and still a work-in-process. Please hel
 st.sidebar.markdown(feedback_text)
 
 st.sidebar.divider()
+
+st.markdown("""
+    <style>
+    .element-container .stTextInput input::placeholder {
+        color: #E5751F; 
+    }
+    .element-container .stTextInput input {
+        color: black; 
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Display existing messages in the chat
 for message in st.session_state.messages:
